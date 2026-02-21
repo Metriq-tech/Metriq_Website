@@ -35,7 +35,7 @@ export const PremiumHero = () => {
     const BEAMS_PER_LAYER = 8;
 
     // Adapted titles for Metriq - nouns that fit "Wir schaffen..."
-    const aiTitles = ["Systeme", "Infrastruktur", "Automatisierung", "Skalierung", "Stabilität"];
+    const aiTitles = ["Systeme", "Infrastruktur", "Strukturen", "Skalierung", "Stabilität"];
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -149,7 +149,7 @@ export const PremiumHero = () => {
             <div className="hero-content">
                 <div className="container hero-inner">
                     <div className="hero-badge">
-                        Struktur & Systeme für Experten <MoveRight size={16} style={{ marginLeft: '0.5rem' }} />
+                        Digitale Infrastruktur & Automatisierung <MoveRight size={16} style={{ marginLeft: '0.5rem' }} />
                     </div>
 
                     <h1 className="hero-title">
@@ -175,13 +175,26 @@ export const PremiumHero = () => {
                     </h1>
 
                     <p className="hero-description">
-                        Wir übernehmen die Verantwortung für Ihre Wissensinfrastruktur – von der Architektur über den Aufbau bis zum laufenden Betrieb. Damit Sie sich auf Ihren Content konzentrieren können.
+                        Metriq baut die digitale Grundlage für wachsende Betriebe und Expertenbetriebe –
+                        von der Wissensinfrastruktur über Websites bis hin zu vollautomatisierten Prozessen.
+                        Messbar. Nachhaltig. Skalierbar.
                     </p>
 
                     <div className="hero-actions">
                         <button className="btn-primary" onClick={() => window.location.href = 'mailto:support@metriq.tech'}>
                             Erstgespräch buchen <MoveRight size={18} style={{ marginLeft: '0.5rem' }} />
                         </button>
+                        <a href="#services" className="btn-secondary hero-btn-secondary">
+                            Leistungen entdecken
+                        </a>
+                    </div>
+
+                    <div className="hero-trust">
+                        <span>🔒 Unverbindlich</span>
+                        <span className="hero-trust-dot">·</span>
+                        <span>⚡ Antwort in 24h</span>
+                        <span className="hero-trust-dot">·</span>
+                        <span>🇩🇪 Made in Deutschland</span>
                     </div>
                 </div>
             </div>
