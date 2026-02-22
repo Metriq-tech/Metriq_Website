@@ -1,131 +1,221 @@
 import React from 'react';
-import KFZHero from './KFZHero';
-import { Zap, Shield, CheckCircle2, LayoutDashboard, Globe, Smartphone, ArrowRight, Mail, Phone } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { PremiumHero } from './PremiumHero';
+import {
+    Globe, Zap, Smartphone, Search, BarChart3, Settings,
+    CheckCircle2, ArrowRight, ArrowLeft, Mail, CalendarCheck,
+    MessageSquare, Bot, Clock, TrendingUp
+} from 'lucide-react';
+
+// ── Leistungen / Service Cards ───────────────────────────────────────────────
+const SERVICES = [
+    {
+        icon: <Globe size={28} />,
+        title: 'Premium Websites',
+        desc: 'Conversion-optimierte Auftritte, die auf mobilen Geräten genauso überzeugen wie auf dem Desktop. Schnell. Klar. Vertrauenswürdig.',
+        color: '#7dd3e8',
+    },
+    {
+        icon: <Bot size={28} />,
+        title: 'Automatisierte Prozesse',
+        desc: 'Terminbuchungen, Follow-Up Mails und Kundenanfragen laufen 24/7 automatisch – ohne manuellen Aufwand von Ihrem Team.',
+        color: '#a78bfa',
+    },
+    {
+        icon: <Search size={28} />,
+        title: 'Lokale SEO & Google',
+        desc: 'Wir sorgen dafür, dass Sie bei relevanten Suchanfragen in Ihrer Region an erster Stelle erscheinen und Kunden Sie finden.',
+        color: '#34d399',
+    },
+    {
+        icon: <Smartphone size={28} />,
+        title: 'Mobile-First Design',
+        desc: 'Über 70 % aller Besucher kommen per Smartphone. Wir optimieren die mobile Erfahrung für maximale Konversionsrate.',
+        color: '#fb923c',
+    },
+    {
+        icon: <BarChart3 size={28} />,
+        title: 'Analytics & Tracking',
+        desc: 'Klares Reporting über Besucher, Anfragen und Conversion – damit Sie sehen, was funktioniert und was nicht.',
+        color: '#f472b6',
+    },
+    {
+        icon: <Settings size={28} />,
+        title: 'Wartung & Support',
+        desc: 'Kein Stillstand. Wir übernehmen den laufenden Betrieb Ihrer digitalen Infrastruktur – Updates, Sicherheit, Performance.',
+        color: '#7dd3e8',
+    },
+];
+
+// ── Prozess Steps ─────────────────────────────────────────────────────────────
+const PROCESS_STEPS = [
+    { num: '01', title: 'Analyse', desc: 'Wir nehmen Ihren aktuellen Auftritt und Ihre Ziele unter die Lupe. Kostenlos, unverbindlich.' },
+    { num: '02', title: 'Strategie', desc: 'Auf Basis der Analyse entwickeln wir ein maßgeschneidertes Konzept – keine Vorlage, kein Copy-Paste.' },
+    { num: '03', title: 'Umsetzung', desc: 'Wir bauen, testen und optimieren. Sie sehen den Fortschritt live und geben Feedback in Echtzeit.' },
+    { num: '04', title: 'Live & Betrieb', desc: 'Nach dem Launch übernehmen wir den Betrieb. Ihre Website bleibt dauerhaft schnell, sicher und aktuell.' },
+];
+
+// ── Stats ─────────────────────────────────────────────────────────────────────
+const STATS = [
+    { value: '+40 %', label: 'Mehr qualifizierte Anfragen im Schnitt' },
+    { value: '24 / 7', label: 'Automatische Erreichbarkeit für Ihre Kunden' },
+    { value: '3 Wo.', label: 'Durchschnittliche Zeit von Analyse bis Launch' },
+    { value: 'Top 3', label: 'Lokale Google-Platzierung für relevante Keywords' },
+];
+
+// ── Benefits list ─────────────────────────────────────────────────────────────
+const BENEFITS = [
+    { title: 'Mehr Anfragen', desc: 'Durch bessere Sichtbarkeit bei Google und eine optimierte Conversion-Strecke.' },
+    { title: 'Weniger Aufwand', desc: 'Automatisierte Prozesse entlasten Sie und Ihr Team täglich spürbar.' },
+    { title: 'Professioneller Auftritt', desc: 'Eine Website, die Vertrauen schafft – bevor Sie auch nur ein Wort gesagt haben.' },
+    { title: 'Messbare Ergebnisse', desc: 'Keine Versprechen ins Blaue hinein – nur Maßnahmen mit klarer Wirkung.' },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 const WebsiteAutomatisierungPage = () => {
     return (
-        <div className="page-website-automatisierung">
-            <KFZHero
-                trustBadge={{
-                    text: "Premium Websites & Intelligente Automatisierung",
-                    icons: ["🌐", "⚡", "🤖"]
-                }}
-                headline={{
-                    line1: "Digitale Präsenz",
-                    line2: "die verkauft"
-                }}
-                subtitle="Wir bauen nicht nur Websites – wir digitalisieren Ihren kompletten Kundenzulauf. Von der ersten Suche bis zum fertigen Termin."
-                buttons={{
-                    primary: { text: "Kostenlose Analyse anfragen", onClick: () => console.log('CTA Clicked') },
-                    secondary: { text: "Leistungen ansehen", onClick: () => document.getElementById('services').scrollIntoView({ behavior: 'smooth' }) }
-                }}
+        <div className="subpage wap-root">
+
+            {/* ── Beam Hero mit Breadcrumb ── */}
+            <PremiumHero
+                badge="Website & Automatisierung"
+                titlePrefix="Digitale Präsenz,"
+                titles={['die verkauft.', 'die wächst.', 'die überzeugt.', 'die automatisiert.', 'die konvertiert.']}
+                description="Wir bauen nicht nur Websites – wir digitalisieren Ihren kompletten Kundenzulauf. Von der ersten Google-Suche bis zum fertigen Erstgespräch, vollständig automatisiert."
+                primaryCTA={{ text: 'Kostenlose Analyse anfragen', href: 'mailto:support@metriq.tech?subject=Kostenlose Analyse anfragen' }}
+                secondaryCTA={{ text: 'Leistungen ansehen', href: '#leistungen' }}
+                showTrust={false}
+                topSlot={
+                    <Link to="/" className="subpage-back-link">
+                        <ArrowLeft size={16} /> Zurück zur Startseite
+                    </Link>
+                }
             />
 
-            <section id="services" className="section-padding">
+            {/* ── Stats ────────────────────────────────────────── */}
+            <section className="wap-stats-bar section-padding-sm">
                 <div className="container">
-                    <div className="section-header">
-                        <span className="section-tag">Leistungen</span>
-                        <h2>Was wir für Sie umsetzen</h2>
-                        <p>Von der Website bis zur vollautomatischen Kundengewinnung.</p>
-                    </div>
-                    <div className="grid">
-                        <div className="glass-card service-card">
-                            <div className="service-card-icon"><Globe size={28} /></div>
-                            <h3>Premium Websites</h3>
-                            <p>Ein digitaler Auftritt, der Vertrauen schafft. Schnell, mobil-optimiert und auf Konvertierung ausgelegt.</p>
-                        </div>
-                        <div className="glass-card service-card">
-                            <div className="service-card-icon"><Zap size={28} /></div>
-                            <h3>Automatisierte Prozesse</h3>
-                            <p>Terminbuchungen, Follow-Ups und Kundenkommunikation laufen 24/7 automatisch – ohne Ihr Zutun.</p>
-                        </div>
-                        <div className="glass-card service-card">
-                            <div className="service-card-icon"><Smartphone size={28} /></div>
-                            <h3>Mobile-First Design</h3>
-                            <p>Über 70% Ihrer Kunden kommen vom Smartphone. Wir optimieren für perfekte mobile Erlebnisse.</p>
-                        </div>
-                        <div className="glass-card service-card">
-                            <div className="service-card-icon"><LayoutDashboard size={28} /></div>
-                            <h3>Google Optimierung</h3>
-                            <p>Wir sorgen dafür, dass Sie lokal bei relevanten Suchanfragen ganz oben stehen.</p>
-                        </div>
+                    <div className="wap-stats-grid">
+                        {STATS.map((s, i) => (
+                            <div key={i} className="wap-stat-item">
+                                <div className="wap-stat-value">{s.value}</div>
+                                <div className="wap-stat-label">{s.label}</div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* Benefits */}
+            {/* ── Leistungen ───────────────────────────────────── */}
+            <section id="leistungen" className="section-padding">
+                <div className="container">
+                    <div className="section-header">
+                        <span className="section-tag">Leistungen</span>
+                        <h2>Was wir für Sie umsetzen</h2>
+                        <p>Von der Website bis zur vollautomatischen Kundengewinnung – alles aus einer Hand.</p>
+                    </div>
+                    <div className="wap-services-grid">
+                        {SERVICES.map((s, i) => (
+                            <div key={i} className="wap-service-card glass-card" style={{ '--card-color': s.color }}>
+                                <div className="wap-service-icon" style={{ color: s.color }}>{s.icon}</div>
+                                <h3>{s.title}</h3>
+                                <p>{s.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ── Benefits + Stats Col ─────────────────────────── */}
             <section className="benefits-section section-padding">
                 <div className="container">
                     <div className="benefits-grid">
                         <div className="benefits-text-col">
                             <span className="section-tag">Messbare Ergebnisse</span>
                             <h2>Zahlen, die überzeugen.</h2>
-                            <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', fontSize: '1.1rem', lineHeight: '1.7' }}>
+                            <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', fontSize: '1.05rem', lineHeight: '1.75' }}>
                                 Unsere Lösungen sind nicht nur schön – sie liefern messbare Ergebnisse für Ihren Betrieb.
                             </p>
                             <ul className="benefits-list-v2">
-                                <li><CheckCircle2 size={20} className="icon-blue" /> <div><strong>Mehr Anfragen</strong><span>Durch bessere Sichtbarkeit bei Google und optimierte Conversion.</span></div></li>
-                                <li><CheckCircle2 size={20} className="icon-blue" /> <div><strong>Weniger Aufwand</strong><span>Automatisierte Prozesse entlasten Sie und Ihr Team täglich.</span></div></li>
-                                <li><CheckCircle2 size={20} className="icon-blue" /> <div><strong>Professioneller Auftritt</strong><span>Eine Website, die Vertrauen schafft und Kunden überzeugt.</span></div></li>
-                                <li><CheckCircle2 size={20} className="icon-blue" /> <div><strong>Schnelle Umsetzung</strong><span>Von der Analyse bis zum Launch in nur wenigen Wochen.</span></div></li>
+                                {BENEFITS.map((b, i) => (
+                                    <li key={i}>
+                                        <CheckCircle2 size={20} className="icon-blue" />
+                                        <div>
+                                            <strong>{b.title}</strong>
+                                            <span>{b.desc}</span>
+                                        </div>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                         <div className="benefits-stats-col">
-                            <div className="stat-card glass-card">
-                                <div className="stat-number">+40%</div>
-                                <div className="stat-label">Weniger Zeitaufwand für Administration</div>
+                            <div className="glass-card wap-highlight-card">
+                                <CalendarCheck size={32} style={{ color: '#7dd3e8', marginBottom: '1rem' }} />
+                                <h3>Automatische Terminbuchung</h3>
+                                <p style={{ color: 'var(--text-muted)', lineHeight: '1.65' }}>
+                                    Kunden buchen ihren Termin direkt auf Ihrer Website – rund um die Uhr, ohne Telefonat, ohne Hin-und-Her.
+                                </p>
                             </div>
-                            <div className="stat-card glass-card">
-                                <div className="stat-number">24/7</div>
-                                <div className="stat-label">Erreichbarkeit für Ihre Kunden</div>
-                            </div>
-                            <div className="stat-card glass-card">
-                                <div className="stat-number">3 Wo.</div>
-                                <div className="stat-label">Durchschnittliche Umsetzungszeit</div>
-                            </div>
-                            <div className="stat-card glass-card">
-                                <div className="stat-number">Top 3</div>
-                                <div className="stat-label">Google-Platzierung lokal</div>
+                            <div className="glass-card wap-highlight-card">
+                                <MessageSquare size={32} style={{ color: '#a78bfa', marginBottom: '1rem' }} />
+                                <h3>Automatisierte Follow-Ups</h3>
+                                <p style={{ color: 'var(--text-muted)', lineHeight: '1.65' }}>
+                                    Erinnerungen, Dankes-Mails und Nachfass-Sequenzen laufen automatisch – Ihre Kunden fühlen sich persönlich betreut.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* KFZ Spezialisierung Highlight */}
-            <section className="section-padding" style={{ background: 'linear-gradient(to bottom, transparent, rgba(14, 165, 233, 0.03))' }}>
+            {/* ── Prozess ──────────────────────────────────────── */}
+            <section className="section-padding">
                 <div className="container">
-                    <div className="glass-card" style={{ textAlign: 'center', borderColor: 'rgba(125, 211, 232, 0.2)' }}>
-                        <span className="section-tag">Spezialisierung</span>
-                        <h2 style={{ fontSize: '2rem', marginBottom: '1rem', marginTop: '1rem' }}>Speziell für KFZ-Werkstätten</h2>
-                        <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', maxWidth: '700px', margin: '0 auto 2rem', lineHeight: '1.7' }}>
-                            Für KFZ-Werkstätten bieten wir maßgeschneiderte Lösungen: Von der automatischen Terminbuchung über TÜV-Erinnerungen bis zur Google Maps Dominanz.
-                        </p>
-                        <button
-                            className="btn-primary"
-                            onClick={() => window.location.href = '/kfz'}
-                            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem', padding: '0.9rem 2rem' }}
-                        >
-                            KFZ-Spezialisierung ansehen <ArrowRight size={18} />
-                        </button>
+                    <div className="section-header">
+                        <span className="section-tag">Ablauf</span>
+                        <h2>So arbeiten wir</h2>
+                        <p>Transparent, strukturiert und ohne Überraschungen – von der ersten Analyse bis zum laufenden Betrieb.</p>
+                    </div>
+                    <div className="wap-process-steps">
+                        {PROCESS_STEPS.map((step, i) => (
+                            <div key={i} className="wap-process-step glass-card">
+                                <div className="wap-step-num">{step.num}</div>
+                                <div>
+                                    <h3>{step.title}</h3>
+                                    <p style={{ color: 'var(--text-muted)', lineHeight: '1.65', marginTop: '0.5rem' }}>{step.desc}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* CTA Banner */}
+            {/* ── CTA Banner ───────────────────────────────────── */}
             <section className="cta-banner section-padding">
                 <div className="container">
                     <div className="cta-banner-inner glass-card">
                         <div className="cta-banner-text">
-                            <h2>Bereit für Ihre neue Website?</h2>
-                            <p>Wir analysieren Ihren aktuellen Auftritt kostenlos und zeigen Ihnen, welche Maßnahmen den größten Unterschied machen.</p>
+                            <h2>Bereit für Ihren neuen digitalen Auftritt?</h2>
+                            <p>
+                                In einem kostenlosen 30-Minuten-Gespräch analysieren wir Ihren aktuellen Auftritt
+                                und zeigen Ihnen konkret, welche Maßnahmen den größten Unterschied machen.
+                            </p>
                         </div>
                         <div className="cta-banner-actions">
-                            <button className="btn-primary" style={{ fontSize: '1.1rem', padding: '1rem 2.5rem' }}>
-                                Kostenlose Analyse
-                            </button>
-                            <a href="mailto:support@metriq.tech" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                                <Mail size={18} /> Kontakt aufnehmen
+                            <a
+                                href="mailto:support@metriq.tech?subject=Kostenlose Analyse anfragen"
+                                className="btn-primary"
+                                style={{ fontSize: '1.05rem', padding: '1rem 2.25rem' }}
+                            >
+                                Jetzt Analyse anfragen <ArrowRight size={18} />
+                            </a>
+                            <a
+                                href="mailto:support@metriq.tech"
+                                className="btn-outline"
+                                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+                            >
+                                <Mail size={18} /> Direkt schreiben
                             </a>
                         </div>
                     </div>

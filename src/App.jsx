@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import { LayoutDashboard, Zap, Shield, Cpu, Layers, Workflow, CheckCircle2, ArrowRight, ArrowUpRight, Menu, X, Star, ChevronRight, ChevronDown, MessageSquare, Phone, Mail, ScanSearch, Lightbulb, Wrench, GitMerge, TrendingUp, Clock, Users } from 'lucide-react'
+import { LayoutDashboard, Zap, Shield, Cpu, Layers, Workflow, CheckCircle2, ArrowRight, ArrowUpRight, Menu, X, Star, ChevronRight, ChevronDown, MessageSquare, Phone, Mail, ScanSearch, Lightbulb, Wrench, GitMerge, TrendingUp, Clock, Users, Globe, Settings, Search, Calendar, ChevronLeft } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PremiumHero } from './components/PremiumHero'
 import KFZHero from './components/KFZHero'
@@ -294,7 +294,7 @@ const einstiegsPunkte = [
         icon: LayoutDashboard,
         title: "Digitale Präsenz",
         subtitle: "Website & Sichtbarkeit",
-        anchor: "ab 990 €",
+        anchor: "ab 599 €",
         description: "Professioneller Auftritt im Netz, der Kunden gewinnt – schnell, mobil und gefunden.",
         features: [
             "Professionelle Website (Mobile-First)",
@@ -308,7 +308,7 @@ const einstiegsPunkte = [
         icon: Zap,
         title: "Prozess-Automatisierung",
         subtitle: "Workflows & Integration",
-        anchor: "ab 1.490 €",
+        anchor: "ab 799 €",
         description: "Wiederkehrende Aufgaben automatisieren, Systeme verbinden, Zeit für das Wesentliche gewinnen.",
         features: [
             "Workflow- & E-Mail-Automatisierung",
@@ -322,7 +322,7 @@ const einstiegsPunkte = [
         icon: Layers,
         title: "Betrieb & Systeme",
         subtitle: "Ganzheitliche Infrastruktur",
-        anchor: "Individuell",
+        anchor: "ab 1.499 €",
         description: "Alles aus einer Hand – Website, Automatisierung und Prozesse als stabile, skalierbare Einheit.",
         features: [
             "Kombination aller Leistungsbereiche",
@@ -372,7 +372,100 @@ const FAQItem = ({ question, answer }) => {
                 <span>{question}</span>
                 <ChevronDown size={20} className="faq-icon" />
             </div>
-            {open && <div className="faq-answer">{answer}</div>}
+            <div className="faq-answer-wrapper">
+                <div className="faq-answer">
+                    <p className="faq-answer-inner">{answer}</p>
+                </div>
+            </div>
+        </div>
+    )
+}
+// ─── Wonach suchen Sie? (Intent Selector) ───────────────────────────────────
+const intent_data = {
+    umsatz: {
+        label: 'Website & Automatisierung',
+        icon: <Workflow size={36} />,
+        color: '#7dd3e8',
+        desc: 'Premium-Websites und intelligente Automatisierungen, die Kunden gewinnen.',
+        href: '/website-automatisierung',
+        items: [
+            { icon: <Globe size={22} />, title: 'Professionelle Website', desc: 'Websites, die nicht nur gut aussehen – sondern Anfragen generieren' },
+            { icon: <Calendar size={22} />, title: 'Online-Terminbuchung', desc: 'Kunden buchen rund um die Uhr, ohne dass Sie ans Telefon müssen' },
+            { icon: <Search size={22} />, title: 'Google-Sichtbarkeit', desc: 'Lokal gefunden werden – genau dann, wenn Kunden suchen' },
+            { icon: <MessageSquare size={22} />, title: 'Automatisierte Kundenkommunikation', desc: 'Follow-ups, Erinnerungen und Feedbackanfragen vollautomatisch' },
+            { icon: <Star size={22} />, title: 'Bewertungsmanagement', desc: 'Mehr positive Bewertungen – systematisch und ohne Aufwand' },
+            { icon: <ArrowUpRight size={22} />, title: 'Digitale Neukundengewinnung', desc: 'Automatisierte Prozesse, die neue Kunden anziehen' },
+        ]
+    },
+    aufwand: {
+        label: 'Betrieb & Prozesse',
+        icon: <Layers size={36} />,
+        color: '#a78bfa',
+        desc: 'Strukturierte Abläufe und Systeme, die Ihr Team entlasten.',
+        href: '/betrieb-prozesse',
+        items: [
+            { icon: <Settings size={22} />, title: 'Prozessautomatisierung', desc: 'Wiederkehrende Aufgaben automatisieren – mehrere Stunden pro Woche sparen' },
+            { icon: <Workflow size={22} />, title: 'Digitale Abläufe', desc: 'Papierstapel und manuelle Eingaben durch saubere Systeme ersetzen' },
+            { icon: <Clock size={22} />, title: 'Zeitersparnis im Betrieb', desc: 'Weniger Verwaltungsaufwand – mehr Zeit fürs Kerngeschäft' },
+            { icon: <Users size={22} />, title: 'Mitarbeiter-Entlastung', desc: 'Personal entlasten durch smarte Tools statt mehr Personal einstellen' },
+            { icon: <Cpu size={22} />, title: 'Systemintegration', desc: 'Alle Tools sprechen miteinander – kein manuelles Übertragen mehr' },
+            { icon: <ScanSearch size={22} />, title: 'Digitale Übersicht', desc: 'Alle Kennzahlen im Blick – Entscheidungen auf Datenbasis treffen' },
+        ]
+    }
+}
+
+const LeistungenSelector = () => {
+    const [active, setActive] = React.useState(null)
+
+    return (
+        <div className="ls-wrapper">
+            <div className="ls-choice-grid">
+                {Object.entries(intent_data).map(([key, val]) => {
+                    const isActive = active === key
+                    return (
+                        <div
+                            key={key}
+                            className={`ls-choice-card ${isActive ? 'ls-choice-active' : ''}`}
+                            style={{ '--ls-color': val.color }}
+                            onClick={() => setActive(isActive ? null : key)}
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={isActive}
+                            aria-label={`${val.label} – ${isActive ? 'Details schließen' : 'Details anzeigen'}`}
+                            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActive(isActive ? null : key) } }}
+                        >
+                            {/* FRONT: Icon + Label zentriert */}
+                            <div className="ls-card-front">
+                                <span className="ls-front-icon" style={{ color: val.color }}>{val.icon}</span>
+                                <span className="ls-front-label">{val.label}</span>
+                            </div>
+
+                            {/* BACK: Items-Grid innerhalb der Box */}
+                            <div className="ls-card-back">
+                                <div className="ls-back-grid">
+                                    {val.items.map((item, i) => (
+                                        <div key={i} className="ls-back-item" style={{ animationDelay: `${i * 45}ms` }}>
+                                            <span className="ls-back-icon" style={{ color: val.color }}>{item.icon}</span>
+                                            <div>
+                                                <div className="ls-back-title">{item.title}</div>
+                                                <div className="ls-back-desc">{item.desc}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <a
+                                    href={val.href}
+                                    className="ls-back-link"
+                                    style={{ color: val.color }}
+                                    onClick={e => e.stopPropagation()}
+                                >
+                                    Mehr zu „{val.label}" <ArrowRight size={14} />
+                                </a>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 }
@@ -383,74 +476,27 @@ const Home = () => {
         <div className="page-home">
             <PremiumHero />
 
-            {/* Logos / Trust Bar */}
-            <section className="trust-bar">
-                <div className="container">
-                    <p className="trust-bar-label">Vertrauen von Betrieben in ganz Deutschland</p>
-                    <div className="trust-logos">
-                        <span className="trust-logo-item">🔧 Auto Bauer GmbH</span>
-                        <span className="trust-logo-item">⚙️ Kfz-Müller</span>
-                        <span className="trust-logo-item">🛠️ Weber Fahrzeugtechnik</span>
-                        <span className="trust-logo-item">🚗 DG Fahrzeugtechnik</span>
-                        <span className="trust-logo-item">🔩 Auto Thies</span>
-                    </div>
-                </div>
-            </section>
 
-            {/* ── Kernkompetenzen ──────────────────────────── */}
+            {/* ── Kernkompetenzen als Intent-Selector ──────── */}
             <section id="services" className="kk-section section-padding">
                 <div className="container">
                     <div className="section-header">
                         <span className="section-tag">Leistungen</span>
-                        <h2>Zwei Kernkompetenzen. Eine Partnerschaft.</h2>
-                        <p>Wir bauen Infrastruktur und Systeme – je nachdem, was Ihr Betrieb braucht.</p>
+                        <h2>Womit können wir Ihnen helfen?</h2>
+                        <p>Klicken Sie auf den Bereich, der für Sie relevant ist – und sehen Sie sofort, was wir konkret anbieten.</p>
                     </div>
-                    <div className="kk-grid">
-
-                        {/* Karte 1: Betrieb & Prozesse */}
-                        <div className="kk-card glass-card" onClick={() => window.location.href = '/betrieb-prozesse'}>
-                            <div className="kk-card-icon"><Layers size={30} /></div>
-                            <h3>Betrieb & Prozesse</h3>
-                            <p className="kk-card-desc">
-                                Wir strukturieren und optimieren die Abläufe in Ihrem Betrieb –
-                                damit Prozesse nicht von Einzelpersonen abhängen und Ihr Team effizient arbeiten kann.
-                            </p>
-                            <ul className="kk-features">
-                                <li><CheckCircle2 size={16} /> Systemarchitektur & Tool-Auswahl</li>
-                                <li><CheckCircle2 size={16} /> Dokumentation & Wissensmanagement</li>
-                                <li><CheckCircle2 size={16} /> Integrationen & laufender Betrieb</li>
-                            </ul>
-                            <div className="kk-card-link">Mehr erfahren <ArrowRight size={16} /></div>
-                        </div>
-
-                        {/* Karte 2: Website & Automatisierung */}
-                        <div className="kk-card glass-card kk-card-accent" onClick={() => window.location.href = '/website-automatisierung'}>
-                            <div className="kk-card-icon kk-icon-accent"><Workflow size={30} /></div>
-                            <h3>Website & Automatisierung</h3>
-                            <p className="kk-card-desc">
-                                Premium-Websites und intelligente Automatisierungen, die Kunden gewinnen und
-                                wiederkehrende Aufgaben übernehmen – damit Sie sich aufs Wesentliche konzentrieren.
-                            </p>
-                            <ul className="kk-features">
-                                <li><CheckCircle2 size={16} /> Conversion-optimierte Websites</li>
-                                <li><CheckCircle2 size={16} /> CRM, Follow-Ups & Workflows</li>
-                                <li><CheckCircle2 size={16} /> Google-Präsenz & Online-Buchung</li>
-                            </ul>
-                            <div className="kk-card-link">Mehr erfahren <ArrowRight size={16} /></div>
-                        </div>
-
-                    </div>
+                    <LeistungenSelector />
                 </div>
             </section>
 
             {/* ── Prozess ──────────────────────────────────── */}
             <section className="process-section section-padding">
                 <div className="container">
+                    <span className="section-tag" style={{ display: 'block', width: 'fit-content', margin: '0 auto 1.5rem' }}>Ablauf</span>
                     <div className="ps-layout">
 
                         {/* Linke Spalte: Text + CTA */}
                         <div className="ps-left-col">
-                            <span className="section-tag">Prozess</span>
                             <h2>So arbeiten wir zusammen</h2>
                             <p>Klar strukturiert, ohne Überraschungen – von der ersten Analyse bis zum laufenden System.</p>
                             <button className="btn-primary ps-cta" onClick={() => window.location.href = 'mailto:support@metriq.tech'}>
@@ -482,14 +528,14 @@ const Home = () => {
             {/* Benefits – Bento Grid */}
             <section className="benefits-section section-padding">
                 <div className="container">
+                    <span className="section-tag" style={{ display: 'block', width: 'fit-content', margin: '0 auto 1.5rem' }}>Warum Metriq?</span>
                     <div className="bento-grid">
 
                         {/* Headline Tile – spans rows 1–2, col 1 */}
                         <div className="bento-headline glass-card">
-                            <span className="section-tag">Warum Metriq?</span>
                             <h2>Struktur,<br />die wirkt.</h2>
                             <p>Wir bauen Infrastruktur, die langfristig funktioniert – unabhängig von Einzelpersonen und skalierbar mit Ihrem Betrieb.</p>
-                            <button className="btn-primary ps-cta" onClick={() => window.location.href = 'mailto:support@metriq.tech'}>
+                            <button className="btn-primary ps-cta" style={{ width: 'fit-content' }} onClick={() => window.location.href = 'mailto:support@metriq.tech'}>
                                 Erstgespräch buchen <ArrowUpRight size={16} />
                             </button>
                         </div>
@@ -552,9 +598,9 @@ const Home = () => {
             <section className="pricing-section section-padding">
                 <div className="container">
                     <div className="section-header">
-                        <span className="section-tag">Leistungen & Einstieg</span>
-                        <h2>Wie wir zusammenarbeiten</h2>
-                        <p>Kein Standardpaket passt zu jedem Betrieb. Starten Sie mit einem kostenlosen Gespräch – wir finden gemeinsam den richtigen Weg.</p>
+                        <span className="section-tag">Preise</span>
+                        <h2>Einfach. Transparent. Fair.</h2>
+                        <p>Keine versteckten Kosten. Kein Kleingedrucktes.<br />Nur klare Leistungen – ab dem ersten Tag.</p>
                     </div>
                     <div className="ep-grid">
                         {einstiegsPunkte.map((ep, i) => {
@@ -593,39 +639,77 @@ const Home = () => {
             {/* FAQ */}
             <section className="faq-section section-padding">
                 <div className="container">
-                    <div className="section-header">
-                        <span className="section-tag">FAQ</span>
-                        <h2>Häufige Fragen</h2>
-                        <p>Alles, was Sie vor dem Start wissen sollten.</p>
-                    </div>
-                    <div className="faq-list">
-                        {faqItems.map((item, i) => (
-                            <FAQItem key={i} question={item.question} answer={item.answer} />
-                        ))}
+                    <span className="section-tag" style={{ display: 'block', width: 'fit-content', margin: '0 auto 2rem' }}>FAQ</span>
+                    <div className="faq-layout">
+
+                        {/* Bild links */}
+                        <div className="faq-image-col">
+                            <img src="/FAQ_bild4.png" alt="FAQ" />
+                        </div>
+
+                        {/* FAQ rechts */}
+                        <div className="faq-content-col">
+                            <div className="faq-header">
+                                <h2>Häufige Fragen</h2>
+                                <p>Alles, was Sie vor dem Start wissen sollten.</p>
+                            </div>
+                            <div className="faq-list">
+                                {faqItems.map((item, i) => (
+                                    <FAQItem key={i} question={item.question} answer={item.answer} />
+                                ))}
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
 
             {/* CTA Banner */}
-            <section className="cta-banner section-padding">
-                <div className="container">
-                    <div className="cta-banner-inner glass-card">
-                        <div className="cta-banner-text">
-                            <h2>Bereit für den nächsten Schritt?</h2>
-                            <p>Buchen Sie jetzt Ihr kostenloses Erstgespräch und erfahren Sie, welche digitalen Hebel in Ihrem Betrieb noch ungenutzt sind.</p>
-                        </div>
-                        <div className="cta-banner-actions">
-                            <button className="btn-primary" style={{ fontSize: '1.1rem', padding: '1rem 2.5rem' }}>
-                                Erstgespräch buchen
-                            </button>
-                            <a href="mailto:support@metriq.tech" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                                <Mail size={18} /> support@metriq.tech
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <CTABanner />
         </div>
+    )
+}
+
+// CTA Banner mit scroll-triggered animations
+const CTABanner = () => {
+    const ref = React.useRef(null)
+
+    React.useEffect(() => {
+        const el = ref.current
+        if (!el) return
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    el.classList.add('cta-in-view')
+                    observer.disconnect()
+                }
+            },
+            { threshold: 0.25 }
+        )
+        observer.observe(el)
+        return () => observer.disconnect()
+    }, [])
+
+    return (
+        <section className="cta-banner section-padding">
+            <div className="container">
+                <div className="cta-banner-inner" ref={ref}>
+                    <span className="section-tag cta-animate cta-delay-1">Kostenloses Erstgespräch</span>
+                    <h2 className="cta-banner-headline cta-animate cta-delay-2">
+                        Bereit, Ihren Betrieb<br />
+                        <span className="cta-headline-accent">auf das nächste Level zu bringen?</span>
+                    </h2>
+                    <p className="cta-banner-sub cta-animate cta-delay-3">
+                        In 30 Minuten zeigen wir Ihnen, wo Ihr Betrieb konkret Potenzial lässt <br />
+                        und welche Maßnahmen den größten Hebel hätten. <br />Unverbindlich, direkt und ehrlich.
+                    </p>
+                    <a href="mailto:support@metriq.tech" className="btn-primary cta-btn-main cta-animate cta-delay-5">
+                        Jetzt Termin sichern <ArrowUpRight size={18} />
+                    </a>
+                    <div className="cta-glow-overlay cta-animate cta-delay-7" />
+                </div>
+            </div>
+        </section>
     )
 }
 

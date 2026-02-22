@@ -24,7 +24,16 @@ const createBeam = (width, height, layer) => {
     };
 };
 
-export const PremiumHero = () => {
+export const PremiumHero = ({
+    badge = 'Digitale Infrastruktur & Automatisierung',
+    titlePrefix = 'Wir schaffen',
+    titles = ['Systeme', 'Infrastruktur', 'Strukturen', 'Skalierung', 'Stabilität'],
+    description = 'Metriq baut die digitale Grundlage für wachsende Betriebe und Expertenbetriebe – von der Wissensinfrastruktur über Websites bis hin zu vollautomatisierten Prozessen.',
+    primaryCTA = { text: 'Erstgespräch buchen', href: 'mailto:support@metriq.tech' },
+    secondaryCTA = { text: 'Leistungen entdecken', href: '#services' },
+    showTrust = true,
+    topSlot = null,
+}) => {
     const canvasRef = useRef(null);
     const noiseRef = useRef(null);
     const beamsRef = useRef([]);
@@ -34,8 +43,7 @@ export const PremiumHero = () => {
     const LAYERS = 3;
     const BEAMS_PER_LAYER = 8;
 
-    // Adapted titles for Metriq - nouns that fit "Wir schaffen..."
-    const aiTitles = ["Systeme", "Infrastruktur", "Strukturen", "Skalierung", "Stabilität"];
+    const aiTitles = titles;
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -148,12 +156,13 @@ export const PremiumHero = () => {
 
             <div className="hero-content">
                 <div className="container hero-inner">
+                    {topSlot && <div className="hero-top-slot">{topSlot}</div>}
                     <div className="hero-badge">
-                        Digitale Infrastruktur & Automatisierung <MoveRight size={16} style={{ marginLeft: '0.5rem' }} />
+                        {badge} <MoveRight size={16} style={{ marginLeft: '0.5rem' }} />
                     </div>
 
                     <h1 className="hero-title">
-                        <span>Wir schaffen</span>
+                        <span>{titlePrefix}</span>
                         <span className="title-scroll-container">
                             &nbsp;
                             {aiTitles.map((title, index) => (
@@ -174,28 +183,32 @@ export const PremiumHero = () => {
                         </span>
                     </h1>
 
-                    <p className="hero-description">
-                        Metriq baut die digitale Grundlage für wachsende Betriebe und Expertenbetriebe –
-                        von der Wissensinfrastruktur über Websites bis hin zu vollautomatisierten Prozessen.
-                        Messbar. Nachhaltig. Skalierbar.
-                    </p>
+                    <p className="hero-description">{description}</p>
 
                     <div className="hero-actions">
-                        <button className="btn-primary" onClick={() => window.location.href = 'mailto:support@metriq.tech'}>
-                            Erstgespräch buchen <MoveRight size={18} style={{ marginLeft: '0.5rem' }} />
-                        </button>
-                        <a href="#services" className="btn-secondary hero-btn-secondary">
-                            Leistungen entdecken
+                        <a className="btn-primary" href={primaryCTA.href} style={{ textDecoration: 'none' }}>
+                            {primaryCTA.text} <MoveRight size={18} style={{ marginLeft: '0.5rem' }} />
+                        </a>
+                        <a href={secondaryCTA.href} className="btn-secondary hero-btn-secondary">
+                            {secondaryCTA.text}
                         </a>
                     </div>
 
-                    <div className="hero-trust">
-                        <span>🔒 Unverbindlich</span>
-                        <span className="hero-trust-dot">·</span>
-                        <span>⚡ Antwort in 24h</span>
-                        <span className="hero-trust-dot">·</span>
-                        <span>🇩🇪 Made in Deutschland</span>
-                    </div>
+                    {showTrust && (
+                        <div className="hero-trust">
+                            <span><span className="hero-trust-letter">M</span>odern</span>
+                            <span className="hero-trust-dot">·</span>
+                            <span><span className="hero-trust-letter">E</span>ffizient</span>
+                            <span className="hero-trust-dot">·</span>
+                            <span><span className="hero-trust-letter">T</span>echnisch</span>
+                            <span className="hero-trust-dot">·</span>
+                            <span><span className="hero-trust-letter">R</span>outiniert</span>
+                            <span className="hero-trust-dot">·</span>
+                            <span><span className="hero-trust-letter">I</span>ntelligent</span>
+                            <span className="hero-trust-dot">·</span>
+                            <span><span className="hero-trust-letter">Q</span>ualitativ</span>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
